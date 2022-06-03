@@ -4,6 +4,9 @@ window.fathom = (function () {
       document.querySelector('script[src*="script.js"][site]') ||
       document.querySelector("script[data-site]") ||
       document.querySelector("script[site]"),
+    domain =
+      fathomScript.getAttribute("data-domain") ||
+      fathomScript.getAttribute("domain"),
     siteId =
       fathomScript.getAttribute("data-site") ||
       fathomScript.getAttribute("site"),
@@ -158,8 +161,8 @@ window.fathom = (function () {
   }
   return (
     fathomScript.src.indexOf("cdn.usefathom.com") < 0 &&
-      (((scriptUrl = document.createElement("a")).href = fathomScript.src),
-      (trackerUrl = "https://" + scriptUrl.hostname + "/")),
+      ((document.createElement("a").href = fathomScript.src),
+      (trackerUrl = "https://" + domain + "/")),
     auto &&
       setTimeout(function () {
         window.fathom.trackPageview()
